@@ -1,4 +1,4 @@
-// test-data/test-cases.ts
+// test-data/test-data.ts
 import { Column, Tag, Project, TaskCard } from '../src/types';
 
 export const TEST_CREDENTIALS = {
@@ -8,44 +8,48 @@ export const TEST_CREDENTIALS = {
 
 export const BASE_URL = 'https://animated-gingersnap-8cf7f2.netlify.app/';
 
-export const TEST_CASES: TaskCard[] = [
+export interface TestCase extends TaskCard {
+    testId: string;
+}
+
+export const TEST_CASES: TestCase[] = [
     {
-        id: "TC-001",
+        testId: 'TC1',
         title: "Implement user authentication",
         column: Column.TODO,
         tags: [Tag.FEATURE, Tag.HIGH_PRIORITY],
         project: Project.WEB
     },
     {
-        id: "TC-002",
+        testId: 'TC2',
         title: "Fix navigation bug",
         column: Column.TODO,
         tags: [Tag.BUG],
         project: Project.WEB
     },
     {
-        id: "TC-003",
+        testId: 'TC3',
         title: "Design system updates",
         column: Column.IN_PROGRESS,
         tags: [Tag.DESIGN],
         project: Project.WEB
     },
     {
-        id: "TC-004",
+        testId: 'TC4',
         title: "Push notification system",
         column: Column.TODO,
         tags: [Tag.FEATURE],
         project: Project.MOBILE
     },
     {
-        id: "TC-005",
+        testId: 'TC5',
         title: "Offline mode",
         column: Column.IN_PROGRESS,
         tags: [Tag.FEATURE, Tag.HIGH_PRIORITY],
         project: Project.MOBILE
     },
     {
-        id: "TC-006",
+        testId: 'TC6',
         title: "App icon design",
         column: Column.DONE,
         tags: [Tag.DESIGN],

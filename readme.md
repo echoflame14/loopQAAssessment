@@ -1,73 +1,133 @@
-# Playwright Task Automation
+Here's a refined README.md focused specifically on the acceptance criteria and test requirements:
 
-This repository contains automated tests for the Task Management System using Playwright and TypeScript.
+```markdown
+# Loop QA Assessment - Playwright Test Suite
 
-## Project Structure
+[![Playwright](https://img.shields.io/badge/Playwright-2.3.0-blue?logo=playwright)](https://playwright.dev)
 
-```
-playwright-task-automation/
-├── src/                    # Source code for test framework
-│   ├── pages/             # Page Object Models
-│   ├── components/        # Reusable component objects
-│   ├── helpers/           # Test helper functions
-│   ├── types/             # TypeScript type definitions
-│   └── utils/             # Utility functions
-├── tests/                 # Test files
-│   ├── e2e/              # End-to-end test specs
-│   └── fixtures/         # Test data
-```
+End-to-end test automation suite for the Loop Task Management System demo application, implementing data-driven testing patterns with Playwright.
 
-## Setup
+## ✅ Acceptance Criteria Implemented
 
-1. Install dependencies:
+- **Data-driven test architecture** using JSON test cases
+- **Tag validation** 
+- **Column status verification**
+- **Reusable login automation**
+## 🧪 Test Cases
+
+### Test Case 1: Login Validation
+**Objective:** Verify successful authentication  
+- ✅ Navigate to demo application URL  
+- ✅ Enter admin credentials (username/password)  
+- ✅ Submit login form  
+- ✅ Confirm successful dashboard access  
+
+### Test Case 2: Web Application - To Do Column
+**Objective:** Validate feature prioritization  
+- ✅ Verify "Implement user authentication" card  
+- ✅ Confirm **Feature** + **High Priority** tags  
+- ✅ Validate status: ◻️ To Do  
+
+### Test Case 3: Web Application - Bug Tracking  
+**Objective:** Verify defect identification  
+- ✅ Locate "Fix navigation bug" card  
+- ✅ Confirm **Bug** tag presence  
+- ✅ Validate status: ◻️ To Do  
+
+### Test Case 4: Web Application - Design Progress  
+**Objective:** Monitor ongoing design work  
+- ✅ Find "Design system updates" card  
+- ✅ Verify **Design** tag  
+- ✅ Confirm status: 🏗️ In Progress  
+
+### Test Case 5: Mobile Application - Feature Backlog  
+**Objective:** Validate upcoming features  
+- ✅ Identify "Push notification system" card  
+- ✅ Confirm **Feature** tag  
+- ✅ Validate status: ◻️ To Do  
+
+### Test Case 6: Mobile Application - Priority Feature  
+**Objective:** Verify high-impact development  
+- ✅ Locate "Offline mode" card  
+- ✅ Confirm **Feature** + **High Priority** tags  
+- ✅ Validate status: 🏗️ In Progress  
+
+### Test Case 7: Mobile Application - Completed Work  
+**Objective:** Validate finished deliverables  
+- ✅ Find "App icon design" card  
+- ✅ Verify **Design** tag  
+- ✅ Confirm status: ✅ Done  
+
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+- Node.js v18+
+- npm v9+
+- Playwright v1.41+
+
+### Installation
 ```bash
+git clone https://github.com/your-username/loop-qa-assessment.git
+cd loop-qa-assessment
 npm install
+npx playwright install
 ```
 
-2. Create a `.env` file in the root directory:
-```
-BASE_URL=https://your-app-url.com
+### Environment Configuration
+```bash
+# Create environment file
+echo "BASE_URL=https://animated-gingersnap-8cf7f2.netlify.app/" > .env
+echo "TEST_EMAIL=admin" >> .env
+echo "TEST_PASSWORD=password123" >> .env
 ```
 
-## Running Tests
+## 🚀 Running Tests
 
-Run all tests:
+**Run all test cases (headless):**
 ```bash
 npm test
 ```
 
-Run tests in headed mode:
+**Run specific project tests:**
 ```bash
-npm run test:headed
+# Web application tests
+npx playwright test e2e/board.spec.ts --project=web
+
+# Mobile application tests 
+npx playwright test e2e/board.spec.ts --project=mobile
 ```
 
-Debug tests:
+**View HTML report:**
 ```bash
-npm run test:debug
+npm run show-report
 ```
 
-View test report:
-```bash
-npm run report
+## 🧪 Test Data Structure
+Test cases are defined in `test-data/test-data.ts` following this pattern:
+```typescript
+{
+  testId: "TC1",
+  title: "Implement user authentication",
+  column: Column.TODO,
+  tags: [Tag.FEATURE, Tag.HIGH_PRIORITY],
+  project: Project.WEB
+}
 ```
 
-## Test Architecture
+## 📊 Validation Framework
+- **Selector Strategy:** CSS-based element targeting
+- **Assertion Library:** Playwright Test built-in assertions
+- **Reporting:** HTML and JSON reports
+- **Retry Logic:** 2 retries in CI environments
+- **Parallel Execution:** Single-worker mode for test isolation
 
-- **Page Objects**: Encapsulate page-specific selectors and actions
-- **Component Objects**: Reusable components like TaskCard and Tag
-- **Helpers**: Utility functions for navigation and verification
-- **Types**: TypeScript interfaces and enums for better type safety
+## 📬 Submission
+1. Public GitHub repository: `https://github.com/your-username/loop-qa-assessment`
+2. 2-3 minute video walkthrough demonstrating:
+   - Test execution flow
+   - Data-driven architecture explanation
+   - Validation strategy for tags/columns
+   - Reporting capabilities
 
-## Adding New Tests
-
-1. Create page objects in `src/pages/`
-2. Add test data in `tests/fixtures/`
-3. Create test files in `tests/e2e/`
-
-## Best Practices
-
-- Use data-testid attributes for selectors
-- Keep page objects focused and maintainable
-- Follow TypeScript best practices
-- Write descriptive test names
-- Use appropriate timeouts and waits
+```
