@@ -86,14 +86,13 @@ npm run testWindows
 
 ## 🛠️ Technical Highlights
 **Key Stack Benefits:**
+```
 - **TypeScript** for type-safe test development
 - **Playwright Fixtures** for test environment management
 - **Custom Loggers** for execution transparency
 - **CI-Ready** configuration with GitHub Actions support
 ```
 
-Here's the fixed format:
-
 ## 📬 Submission
-Video overview of app 
-https://www.youtube.com/watch?v=7L6EJAs33tY
+**Video walkthrough demonstrating key features:**  
+[![Watch Video Walkthrough](https://img.youtube.com/vi/7L6EJAs33tY/0.jpg)](https://www.youtube.com/watch?v=7L6EJAs33tY)
