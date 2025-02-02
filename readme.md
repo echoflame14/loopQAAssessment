@@ -1,4 +1,4 @@
-```markdown
+
 # Loop QA Assessment - Playwright Test Suite
 
 [![Playwright](https://img.shields.io/badge/Playwright-2.3.0-blue?logo=playwright)](https://playwright.dev)
