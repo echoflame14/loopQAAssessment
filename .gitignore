@@ -15,7 +15,7 @@ src/captureCodebase.ts
 src/diff.ts
 src/getStructure.ts
 src/rag.ts
-
+summaries/**
 # Utils directory with subdirectories
 src/utils/index.ts
 src/utils/errors/**
