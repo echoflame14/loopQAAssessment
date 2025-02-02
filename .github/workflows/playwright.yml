@@ -1,11 +1,9 @@
 name: Playwright Tests
-
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-
 jobs:
   test:
     timeout-minutes: 60
@@ -20,8 +18,14 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Build project
+      run: |
+        npx tsc
+        cp package.json dist/
     - name: Run Playwright tests
-      run: npm run test
+      run: npx playwright test
+      env:
+        NODE_PATH: dist
     - uses: actions/upload-artifact@v4
       if: always()
       with:
