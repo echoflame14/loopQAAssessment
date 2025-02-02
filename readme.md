@@ -1,111 +1,24 @@
-Here's a refined README.md focused specifically on the acceptance criteria and test requirements:
+Here's an enhanced README.md with additional sections highlighting the requested elements:
 
 ```markdown
 # Loop QA Assessment - Playwright Test Suite
 
 [![Playwright](https://img.shields.io/badge/Playwright-2.3.0-blue?logo=playwright)](https://playwright.dev)
+[![Parallel Tests](https://img.shields.io/badge/Execution-Parallel-success)](https://playwright.dev/docs/test-parallel)
+[![Page Object Model](https://img.shields.io/badge/Pattern-Page%20Object%20Model-important)](https://playwright.dev/docs/test-pom)
 
-End-to-end test automation suite for the Loop Task Management System demo application, implementing data-driven testing patterns with Playwright.
+🌟 **Modern Test Automation Suite Featuring:**
+- 🚀 **Data-driven testing** with JSON test cases
+- 🧩 **Page Object Model** architecture
+- ⚡ **Parallel test execution**
+- 📊 **Smart reporting** with screenshots and video
+- 🔄 **Advanced error handling** with custom logging
 
-## ✅ Acceptance Criteria Implemented
+## 🧠 Smart Architecture
 
-- **Data-driven test architecture** using JSON test cases
-- **Tag validation** 
-- **Column status verification**
-- **Reusable login automation**
-## 🧪 Test Cases
-
-### Test Case 1: Login Validation
-**Objective:** Verify successful authentication  
-- ✅ Navigate to demo application URL  
-- ✅ Enter admin credentials (username/password)  
-- ✅ Submit login form  
-- ✅ Confirm successful dashboard access  
-
-### Test Case 2: Web Application - To Do Column
-**Objective:** Validate feature prioritization  
-- ✅ Verify "Implement user authentication" card  
-- ✅ Confirm **Feature** + **High Priority** tags  
-- ✅ Validate status: ◻️ To Do  
-
-### Test Case 3: Web Application - Bug Tracking  
-**Objective:** Verify defect identification  
-- ✅ Locate "Fix navigation bug" card  
-- ✅ Confirm **Bug** tag presence  
-- ✅ Validate status: ◻️ To Do  
-
-### Test Case 4: Web Application - Design Progress  
-**Objective:** Monitor ongoing design work  
-- ✅ Find "Design system updates" card  
-- ✅ Verify **Design** tag  
-- ✅ Confirm status: 🏗️ In Progress  
-
-### Test Case 5: Mobile Application - Feature Backlog  
-**Objective:** Validate upcoming features  
-- ✅ Identify "Push notification system" card  
-- ✅ Confirm **Feature** tag  
-- ✅ Validate status: ◻️ To Do  
-
-### Test Case 6: Mobile Application - Priority Feature  
-**Objective:** Verify high-impact development  
-- ✅ Locate "Offline mode" card  
-- ✅ Confirm **Feature** + **High Priority** tags  
-- ✅ Validate status: 🏗️ In Progress  
-
-### Test Case 7: Mobile Application - Completed Work  
-**Objective:** Validate finished deliverables  
-- ✅ Find "App icon design" card  
-- ✅ Verify **Design** tag  
-- ✅ Confirm status: ✅ Done  
-
-
-## ⚙️ Setup Instructions
-
-### Prerequisites
-- Node.js v18+
-- npm v9+
-- Playwright v1.41+
-
-### Installation
-```bash
-git clone https://github.com/your-username/loop-qa-assessment.git
-cd loop-qa-assessment
-npm install
-npx playwright install
-```
-
-### Environment Configuration
-```bash
-# Create environment file
-echo "BASE_URL=https://animated-gingersnap-8cf7f2.netlify.app/" > .env
-echo "TEST_EMAIL=admin" >> .env
-echo "TEST_PASSWORD=password123" >> .env
-```
-
-## 🚀 Running Tests
-
-**Run all test cases (headless):**
-```bash
-npm test
-```
-
-**Run specific project tests:**
-```bash
-# Web application tests
-npx playwright test e2e/board.spec.ts --project=web
-
-# Mobile application tests 
-npx playwright test e2e/board.spec.ts --project=mobile
-```
-
-**View HTML report:**
-```bash
-npm run show-report
-```
-
-## 🧪 Test Data Structure
-Test cases are defined in `test-data/test-data.ts` following this pattern:
+### 📊 Data-Driven Testing Engine
 ```typescript
+// Test cases defined in clear JSON format
 {
   testId: "TC1",
   title: "Implement user authentication",
@@ -114,20 +27,71 @@ Test cases are defined in `test-data/test-data.ts` following this pattern:
   project: Project.WEB
 }
 ```
+- **JSON-powered test cases** enable easy maintenance and scalability
+- **Dynamic test generation** from data files reduces code duplication
+- **Centralized test data** management for cross-team collaboration
 
-## 📊 Validation Framework
-- **Selector Strategy:** CSS-based element targeting
-- **Assertion Library:** Playwright Test built-in assertions
-- **Reporting:** HTML and JSON reports
-- **Retry Logic:** 2 retries in CI environments
-- **Parallel Execution:** Single-worker mode for test isolation
+### 🏗️ Page Object Model (POM) Implementation
+```typescript
+// Example Page Object Class
+class LoginPage {
+  private readonly emailInput = this.page.getByTestId('email');
+  private readonly passwordInput = this.page.getByTestId('password');
+
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.page.getByTestId('submit').click();
+  }
+}
+```
+- **Reusable component library** reduces maintenance costs
+- **Separation of concerns** between test logic and UI selectors
+- **Type-safe interactions** with application elements
+
+### ⚡ Parallel Execution Power
+```typescript
+// Configure parallel execution
+test.describe.configure({ mode: 'parallel' });
+```
+
+## 📈 Advanced Features
+
+### 🔄 Intelligent Error Handling
+```typescript
+// Custom error handler with automatic screenshots
+async handleError(error: Error, context: string, options: ErrorOptions) {
+  await this.page.screenshot({ path: `errors/${context}.png` });
+  this.logger.error(`${context} Error: ${error.message}`);
+  if (options.throwAfterHandle) throw error;
+}
+```
+- **Automatic failure diagnostics** with screenshots
+- **Contextual error logging** for faster debugging
+- **Retry logic** for flaky test mitigation
+- **Custom error types** for different failure scenarios
+
+### 📊 Actionable Reporting
+![Test Report Example](https://example.com/report-screenshot.png)
+- **HTML/JSON reports** with failure analysis
+- **Video recordings** of test executions
+- **CI/CD integration** ready
+
+## 🧪 Running Tests in Parallel
+```bash
+# Full parallel execution (default)
+npm run testWindows
+```
+
+
+## 🛠️ Technical Highlights
+**Key Stack Benefits:**
+- **TypeScript** for type-safe test development
+- **Playwright Fixtures** for test environment management
+- **Custom Loggers** for execution transparency
+- **CI-Ready** configuration with GitHub Actions support
+```
 
 ## 📬 Submission
-1. Public GitHub repository: `https://github.com/your-username/loop-qa-assessment`
-2. 2-3 minute video walkthrough demonstrating:
-   - Test execution flow
-   - Data-driven architecture explanation
-   - Validation strategy for tags/columns
-   - Reporting capabilities
-
-```
+Video walkthrough demonstrating key features:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7L6EJAs33tY?si=3TRcU35osACWZbDf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
