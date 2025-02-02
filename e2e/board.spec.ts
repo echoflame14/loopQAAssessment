@@ -1,25 +1,23 @@
 // e2e/board.spec.ts
-import { test, expect } from '@playwright/test';
+import { test as base, expect, Page } from '@playwright/test';
 import { LoginPage } from '../src/pages/LoginPage';
 import { ProjectBoardPage } from '../src/pages/ProjectBoardPage';
 import { TEST_CREDENTIALS, TEST_CASES } from '../test-data/test-data';
 import { TestLogger } from '../src/utils/TestLogger';
 import { handleError } from '../src/utils/errors/errorHandler';
 
-// Create a test fixture for authenticated state
-type TestFixtures = {
-  authenticatedPage: {
-    page: any;
-    projectBoardPage: ProjectBoardPage;
-    logger: TestLogger;
-  };
-};
+// Define our custom fixtures
+interface TestFixtures {
+    authenticatedContext: {
+        page: Page;
+        projectBoardPage: ProjectBoardPage;
+        logger: TestLogger;
+    };
+}
 
-test.describe.configure({ mode: 'parallel' });
-
-test.describe('Loop Task Management System - Acceptance Test Suite', () => {
-    // Define the authentication fixture
-    test.beforeEach(async ({ page }, testInfo) => {
+// Create a test instance with our fixtures
+const test = base.extend<TestFixtures>({
+    authenticatedContext: async ({ page }, use, testInfo) => {
         const logger = new TestLogger(testInfo);
         
         try {
@@ -50,12 +48,12 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                 );
             }
 
-            // Store the authenticated state
-            testInfo.fixme = {
+            // Use the fixture
+            await use({
                 page,
                 projectBoardPage,
                 logger
-            };
+            });
 
         } catch (error) {
             await handleError(error as Error, 'Test Setup', {
@@ -64,20 +62,21 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                 throwAfterHandle: true
             });
         }
-    });
+    }
+});
 
-    // Parallelize test cases
+test.describe.configure({ mode: 'parallel' });
+
+test.describe('Loop Task Management System - Acceptance Test Suite', () => {
     for (const testCase of TEST_CASES) {
-        test(`[${testCase.testId}] Task Verification: "${testCase.title}"`, async ({ page }, testInfo) => {
-            const { projectBoardPage, logger } = testInfo.fixme;
+        test(`[${testCase.testId}] Task Verification: "${testCase.title}"`, async ({ authenticatedContext }) => {
+            const { page, projectBoardPage, logger } = authenticatedContext;
             
             try {
-                // Navigate to project
                 logger.step(`Navigating to ${testCase.project}`);
                 await projectBoardPage.navigateToProject(testCase.project);
                 logger.debug('Navigation successful');
 
-                // Verify column
                 logger.step(`Verifying task location in ${testCase.column}`);
                 const columnVerification = await projectBoardPage.verifyTaskInColumn(
                     testCase.title,
@@ -93,7 +92,6 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                 }
                 logger.debug('Column verification successful');
 
-                // Verify tags
                 logger.step(`Verifying task tags: ${testCase.tags.join(', ')}`);
                 const tagVerification = await projectBoardPage.verifyTaskTags(
                     testCase.title,
@@ -122,19 +120,17 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
         });
     }
 
-    test.afterEach(async ({ page }, testInfo) => {
-        const { logger } = testInfo.fixme;
+    test.afterEach(async ({ authenticatedContext }, testInfo) => {
+        const { page, logger } = authenticatedContext;
         
         if (testInfo.status !== testInfo.expectedStatus) {
             const screenshotFileName = `test-results/screenshots/failure_${testInfo.title.replace(/\s+/g, '_')}.png`;
             
-            // Take screenshot and save it
             await page.screenshot({
                 path: screenshotFileName,
                 fullPage: true
             });
             
-            // Attach the saved screenshot to the test report
             await testInfo.attach('screenshot', {
                 path: screenshotFileName,
                 contentType: 'image/png'
