@@ -93,5 +93,5 @@ npm run testWindows
 ```
 
 ## 📬 Submission
-Video walkthrough demonstrating key features:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7L6EJAs33tY?si=3TRcU35osACWZbDf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+**Video walkthrough demonstrating key features:**  
+[![Video Walkthrough](https://img.shields.io/badge/▶-Video_Walkthrough-blue.svg)](https://www.youtube.com/watch?v=7L6EJAs33tY)
