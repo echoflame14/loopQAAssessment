@@ -7,17 +7,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  
+ 
   // Improved reporter configuration
   reporter: [
     ['html'],
     ['list'],
     ['json', { outputFile: 'test-results/test-results.json' }]
-  ],
-  
-  // Module resolution configuration
-  require: [
-    'tsconfig-paths/register'
   ],
 
   use: {
@@ -25,12 +20,12 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    
+   
     // Additional useful configurations
     viewport: { width: 1280, height: 720 },
     actionTimeout: 15000,
     navigationTimeout: 30000,
-    
+   
     // Capture console logs and errors
     contextOptions: {
       logger: {
@@ -43,7 +38,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
         launchOptions: {
           args: ['--disable-dev-shm-usage']
@@ -55,7 +50,7 @@ export default defineConfig({
   // Output configuration
   outputDir: 'test-results',
   preserveOutput: 'failures-only',
-  
+ 
   // Timeout configurations
   timeout: 30000,
   expect: {
