@@ -4,6 +4,7 @@ import { LoginPage } from '../src/pages/LoginPage';
 import { ProjectBoardPage } from '../src/pages/ProjectBoardPage';
 import { TEST_CREDENTIALS, TEST_CASES } from '../test-data/test-data';
 import { TestLogger } from '../src/utils/TestLogger';
+import { handleError } from '../src/utils/errors/errorHandler';
 
 test.describe('Loop Task Management System - Acceptance Test Suite', () => {
     let loginPage: LoginPage;
@@ -34,11 +35,18 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
             
             const boardVisible = await projectBoardPage.isDisplayed();
             if (!boardVisible) {
-                throw new Error('Project board failed to initialize');
+                await handleError(
+                    new Error('Project board failed to initialize'),
+                    'Board Setup',
+                    { page, throwAfterHandle: true }
+                );
             }
         } catch (error) {
-            logger.error('Setup failed', error as Error);
-            throw error;
+            await handleError(error as Error, 'Test Setup', {
+                page,
+                debug: true,
+                throwAfterHandle: true
+            });
         }
     });
 
@@ -58,8 +66,10 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                 );
                 
                 if (!columnVerification) {
-                    throw new Error(
-                        `Task "${testCase.title}" not found in ${testCase.column} column`
+                    await handleError(
+                        new Error(`Task "${testCase.title}" not found in ${testCase.column} column`),
+                        'Column Verification',
+                        { page, throwAfterHandle: true }
                     );
                 }
                 logger.debug('Column verification successful');
@@ -72,8 +82,10 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                 );
                 
                 if (!tagVerification) {
-                    throw new Error(
-                        `Tags mismatch for "${testCase.title}". Expected: ${testCase.tags.join(', ')}`
+                    await handleError(
+                        new Error(`Tags mismatch for "${testCase.title}". Expected: ${testCase.tags.join(', ')}`),
+                        'Tag Verification',
+                        { page, throwAfterHandle: true }
                     );
                 }
                 logger.debug('Tag verification successful');
@@ -81,14 +93,32 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                 logger.info(`All verifications passed for "${testCase.title}"`);
 
             } catch (error) {
-                logger.error(`Test case ${testCase.testId} failed`, error as Error);
-                throw error;
+                await handleError(error as Error, `Test Case ${testCase.testId}`, {
+                    page,
+                    debug: true,
+                    screenshotPrefix: testCase.testId,
+                    throwAfterHandle: true
+                });
             }
         });
     }
 
-    test.afterEach(async ({ }, testInfo) => {
+    test.afterEach(async ({ page }, testInfo) => {
         if (testInfo.status !== testInfo.expectedStatus) {
+            const screenshotFileName = `test-results/screenshots/failure_${testInfo.title.replace(/\s+/g, '_')}.png`;
+            
+            // Take screenshot and save it
+            await page.screenshot({
+                path: screenshotFileName,
+                fullPage: true
+            });
+            
+            // Attach the saved screenshot to the test report
+            await testInfo.attach('screenshot', {
+                path: screenshotFileName,
+                contentType: 'image/png'
+            });
+            
             logger.error(`Test failed: ${testInfo.error?.message}`);
         }
         logger.debug(`Test duration: ${testInfo.duration}ms`);

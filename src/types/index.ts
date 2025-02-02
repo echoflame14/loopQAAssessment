@@ -9,11 +9,11 @@ export enum Tag {
     FEATURE = "Feature",
     BUG = "Bug",
     DESIGN = "Design",
-    HIGH_PRIORITY = "High Priority"
+    HIGH_PRIORITY = "Higher Priority"
 }
 
 export enum Project {
-    WEB = "Web Application",
+    WEB = "Test",
     MOBILE = "Mobile Application"
 }
 
