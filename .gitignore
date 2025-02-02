@@ -18,7 +18,6 @@ src/rag.ts
 summaries/**
 # Utils directory with subdirectories
 src/utils/index.ts
-src/utils/errors/customErrors.ts
 src/utils/fs/**
 src/utils/patterns/**
 src/utils/types/**
