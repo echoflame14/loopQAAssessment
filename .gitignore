@@ -1,18 +1,28 @@
-node_modules/ 
-test-results/ 
-/playwright-report/ 
-/playwright/.cache/ 
-.env
+# Dependencies
+node_modules/
 
-# Playwright
-/test-results/
+# Test Results
+test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Environment Variables
+.env
+
+# Project-specific files
 src/captureCodebase.ts
 src/diff.ts
 src/getStructure.ts
 src/rag.ts
-src/utils/
+
+# Utils directory with subdirectories
+src/utils/index.ts
+src/utils/errors/**
+src/utils/fs/**
+src/utils/patterns/**
+src/utils/types/**
+
+# Data files
 input.csv
 paste.txt
