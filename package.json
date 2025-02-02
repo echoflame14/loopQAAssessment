@@ -4,9 +4,10 @@
   "description": "Playwright Test Framework for Loop QA Assessment",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_OPTIONS='-r tsconfig-paths/register' playwright test",
-    "test:ui": "NODE_OPTIONS='-r tsconfig-paths/register' playwright test --ui",
-    "test:headed": "NODE_OPTIONS='-r tsconfig-paths/register' playwright test --headed",
+    "testUnix": "NODE_OPTIONS='-r tsconfig-paths/register' playwright test",
+    "testWindows": "cross-env NODE_OPTIONS=\"-r tsconfig-paths/register\" playwright test",
+    "test:ui": "cross-env NODE_OPTIONS=\"-r tsconfig-paths/register\" playwright test --ui",
+    "test:headed": "cross-env NODE_OPTIONS=\"-r tsconfig-paths/register\" playwright test --headed",
     "show-report": "playwright show-report",
     "structure": "ts-node --project tsconfig.json src/getStructure.ts",
     "capture": "ts-node --project tsconfig.json src/captureCodebase.ts",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

@@ -4,34 +4,33 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+   
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
         cache: 'npm'
-    
+   
     - name: Install dependencies
       run: |
         npm ci
-        npm install -D tsconfig-paths ts-node @types/node
-        
+        npm install -D tsconfig-paths ts-node @types/node cross-env
+       
     - name: Install Playwright Browser
       run: npx playwright install chromium --with-deps
-      
+     
     - name: Run Playwright tests
       run: |
         export NODE_OPTIONS='-r tsconfig-paths/register'
         export TS_NODE_PROJECT=./tsconfig.json
         export TS_NODE_BASEURL=./
-        npm run test
-      
+        npm run testUnix
+     
     - uses: actions/upload-artifact@v4
       if: always()
       with:
