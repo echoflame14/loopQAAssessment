@@ -92,7 +92,7 @@ npm run testWindows
 - **CI-Ready** configuration with GitHub Actions support
 ```
 
-## 📬 Submission
-**Video walkthrough demonstrating key features:**  
-[Watch Video Walkthrough](<https://www.youtube.com/watch?v=7L6EJAs33tY>)
+Here's the fixed format:
 
+## 📬 Submission
+[![Watch Video Walkthrough](https://i.sstatic.net/Vp2cE.png)](https://www.youtube.com/watch?v=7L6EJAs33tY)
