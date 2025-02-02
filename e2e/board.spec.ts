@@ -6,18 +6,26 @@ import { TEST_CREDENTIALS, TEST_CASES } from '../test-data/test-data';
 import { TestLogger } from '../src/utils/TestLogger';
 import { handleError } from '../src/utils/errors/errorHandler';
 
-test.describe('Loop Task Management System - Acceptance Test Suite', () => {
-    let loginPage: LoginPage;
-    let projectBoardPage: ProjectBoardPage;
-    let logger: TestLogger;
+// Create a test fixture for authenticated state
+type TestFixtures = {
+  authenticatedPage: {
+    page: any;
+    projectBoardPage: ProjectBoardPage;
+    logger: TestLogger;
+  };
+};
 
+test.describe.configure({ mode: 'parallel' });
+
+test.describe('Loop Task Management System - Acceptance Test Suite', () => {
+    // Define the authentication fixture
     test.beforeEach(async ({ page }, testInfo) => {
-        logger = new TestLogger(testInfo);
+        const logger = new TestLogger(testInfo);
         
         try {
             logger.step('Setting up test environment');
-            loginPage = new LoginPage(page);
-            projectBoardPage = new ProjectBoardPage(page);
+            const loginPage = new LoginPage(page);
+            const projectBoardPage = new ProjectBoardPage(page);
 
             logger.debug('Navigating to application');
             await page.goto('/');
@@ -41,6 +49,14 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
                     { page, throwAfterHandle: true }
                 );
             }
+
+            // Store the authenticated state
+            testInfo.fixme = {
+                page,
+                projectBoardPage,
+                logger
+            };
+
         } catch (error) {
             await handleError(error as Error, 'Test Setup', {
                 page,
@@ -50,8 +66,11 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
         }
     });
 
+    // Parallelize test cases
     for (const testCase of TEST_CASES) {
-        test(`[${testCase.testId}] Task Verification: "${testCase.title}"`, async ({ page }) => {
+        test(`[${testCase.testId}] Task Verification: "${testCase.title}"`, async ({ page }, testInfo) => {
+            const { projectBoardPage, logger } = testInfo.fixme;
+            
             try {
                 // Navigate to project
                 logger.step(`Navigating to ${testCase.project}`);
@@ -104,6 +123,8 @@ test.describe('Loop Task Management System - Acceptance Test Suite', () => {
     }
 
     test.afterEach(async ({ page }, testInfo) => {
+        const { logger } = testInfo.fixme;
+        
         if (testInfo.status !== testInfo.expectedStatus) {
             const screenshotFileName = `test-results/screenshots/failure_${testInfo.title.replace(/\s+/g, '_')}.png`;
             

@@ -5,44 +5,37 @@ export class TestLogger {
     private readonly isDebugEnabled: boolean;
 
     constructor(private testInfo: TestInfo) {
-        // Check if DEBUG is 'true' (string comparison since env vars are strings)
         this.isDebugEnabled = process.env.DEBUG === 'true';
     }
 
-    private formatMessage(level: string, message: string): string {
-        return `${level.padEnd(7)} | ${message}`;
-    }
-
     info(message: string) {
+        // Only add to annotations, no console output
         this.testInfo.annotations.push({ type: 'info', description: message });
-        console.log(this.formatMessage('INFO', message));
     }
 
     debug(message: string) {
-        if (this.isDebugEnabled) {
-            this.testInfo.annotations.push({ type: 'debug', description: message });
-            console.log(this.formatMessage('DEBUG', message));
-        }
+        // Only add to annotations, no console output
+        this.testInfo.annotations.push({ type: 'debug', description: message });
     }
 
     error(message: string, error?: Error) {
         const errorMessage = `${message}${error ? `: ${error.message}` : ''}`;
         this.testInfo.annotations.push({ type: 'error', description: errorMessage });
-        console.error(this.formatMessage('ERROR', errorMessage));
+        // Only log actual errors, not verification failures
+        if (!message.includes('verification')) {
+            console.error(`✕ ${errorMessage}`);
+        }
         if (error?.stack) {
-            console.error('Stack trace:');
-            console.error(error.stack);
+            this.testInfo.annotations.push({ type: 'error', description: error.stack });
         }
     }
 
     step(message: string) {
+        // Only add to annotations, no console output
         this.testInfo.annotations.push({ type: 'step', description: message });
-        console.log(this.formatMessage('STEP', `${message}`));
     }
 
     duration(ms: number) {
-        if (this.isDebugEnabled) {
-            this.debug(`Test completed in ${ms}ms`);
-        }
+        this.testInfo.annotations.push({ type: 'debug', description: `Test completed in ${ms}ms` });
     }
 }
