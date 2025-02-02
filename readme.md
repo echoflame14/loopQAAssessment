@@ -95,4 +95,5 @@ npm run testWindows
 Here's the fixed format:
 
 ## 📬 Submission
-[![Watch Video Walkthrough](https://i.sstatic.net/Vp2cE.png)](https://www.youtube.com/watch?v=7L6EJAs33tY)
+Video overview of app 
+https://www.youtube.com/watch?v=7L6EJAs33tY
