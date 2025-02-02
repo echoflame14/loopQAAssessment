@@ -14,9 +14,6 @@ export default defineConfig({
     ['list'],
     ['json', { outputFile: 'test-results/test-results.json' }]
   ],
-
-  // Global setup configuration
-  globalSetup: path.join(__dirname, './global-setup.ts'),
   
   // Module resolution configuration
   require: [
@@ -48,7 +45,6 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        // Additional Chrome-specific settings
         launchOptions: {
           args: ['--disable-dev-shm-usage']
         }
@@ -64,16 +60,5 @@ export default defineConfig({
   timeout: 30000,
   expect: {
     timeout: 10000
-  },
-  
-  // Path resolution help
-  webServer: {
-    command: 'npm run test',
-    port: 3000,
-    reuseExistingServer: !process.env.CI,
-    env: {
-      TS_NODE_PROJECT: path.join(__dirname, './tsconfig.json'),
-      TS_NODE_BASEURL: __dirname,
-    }
   }
 });
