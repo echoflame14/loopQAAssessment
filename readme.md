@@ -95,7 +95,6 @@ npm run testWindows
 **Video walkthrough demonstrating key features:**  
 [![Watch Video Walkthrough](https://img.youtube.com/vi/7L6EJAs33tY/0.jpg)](https://www.youtube.com/watch?v=7L6EJAs33tY)
 
-```markdown
 # Loop QA Assessment - Playwright Test Automation Implementation Work Log  
 **Dates:** January 31 - February 2, 2025  
 
@@ -164,4 +163,3 @@ npm run testWindows
 - Data-driven test architecture  
 - Automated error handling and reporting system  
 - Parallel test execution capabilities  
-```
