@@ -95,21 +95,18 @@ npm run testWindows
 **Video walkthrough demonstrating key features:**  
 [![Watch Video Walkthrough](https://img.youtube.com/vi/7L6EJAs33tY/0.jpg)](https://www.youtube.com/watch?v=7L6EJAs33tY)
 
-
-## Detailed Work Log
-
-**Project:** Loop QA Assessment - Playwright Test Automation Implementation  
-**Dates:** February 1-2, 2025  
+```markdown
+# Loop QA Assessment - Playwright Test Automation Implementation Work Log  
+**Dates:** January 31 - February 2, 2025  
 
 ---
 
-### Session 1: Initial Implementation  
+## Session 1: Core Implementation & CI Setup  
 **Date:** Saturday, February 1, 2025  
-**Time:** 5:35 PM - 6:23 PM (0.80 hours)  
-
+**Time:** 2:23 PM - 6:23 PM (4.00 hours) | Commit: [`88451c5` ➔ `5fb6627`]  
 **Activities:**  
 - Established core test automation architecture  
-- Implemented Page Object Model design pattern for maintainable selectors  
+- Implemented Page Object Model design pattern  
 - Configured initial GitHub Actions CI workflow  
 - Set up data-driven test framework with JSON test cases  
 - Integrated login automation with environment credentials  
@@ -117,56 +114,54 @@ npm run testWindows
 
 ---
 
-### Session 2: Test Framework Enhancement  
+## Session 2: Framework Optimization  
 **Date:** Saturday, February 1, 2025  
-**Time:** 9:22 PM - 10:32 PM (1.17 hours)  
-
+**Time:** 9:22 PM - 10:44 PM (1.37 hours) | Commit: [`0fc7c20` ➔ `a1aaec0`]  
 **Activities:**  
-- Refactored test architecture to use Playwright fixtures  
+- Refactored test architecture with Playwright fixtures  
 - Implemented parallel test execution capabilities  
 - Enhanced error handling with automatic screenshot capture  
 - Added comprehensive test reporting functionality  
-- Streamlined logging system for better debugging  
 - Resolved TypeScript path resolution issues  
 - Optimized module import structure  
 
 ---
 
-### Session 3: CI/CD Optimization  
+## Session 3: CI/CD Finalization  
 **Date:** Sunday, February 2, 2025  
-**Time:** 9:28 AM - 10:11 AM (0.72 hours)  
-
+**Time:** 9:28 AM - 10:11 AM (0.72 hours) | Commit: [`a08e18f` ➔ `52b99b8`]  
 **Activities:**  
 - Streamlined Playwright browser installation in CI  
-- Implemented cross-platform compatibility for Windows/Unix  
-- Added cross-env dependency for environment variable handling  
-- Created separate test scripts for different operating systems  
-- Updated GitHub Actions workflow for improved reliability  
-- Optimized browser caching and installation processes  
+- Implemented cross-platform compatibility (Windows/Unix)  
+- Created OS-specific test scripts  
+- Optimized GitHub Actions workflow reliability  
+- Improved browser caching processes  
 
 ---
 
-### Session 4: Documentation & Finalization  
+## Session 4: Documentation Polish  
 **Date:** Sunday, February 2, 2025  
-**Time:** 12:51 PM - 1:12 PM (0.35 hours)  
-
+**Time:** 12:51 PM - 1:29 PM (0.63 hours) | Commit: [`7a6e76a` ➔ `900b068`]  
 **Activities:**  
 - Created comprehensive technical documentation  
 - Documented architecture decisions and technical highlights  
-- Added detailed execution instructions  
-- Enhanced README with modern badges and feature highlights  
+- Enhanced README with modern badges and video walkthrough  
 - Structured documentation for maintainability  
+- Finalized work log documentation  
 
 ---
 
-### Total Billable Hours: 3.04 hours  
+## Total Billable Hours  
+**6.72 hours**  
 
 ---
 
-### Project Deliverables:  
+## Project Deliverables  
 - Full Playwright test automation framework  
 - CI/CD pipeline with GitHub Actions  
 - Cross-platform test execution support  
-- Comprehensive documentation  
+- Comprehensive technical documentation  
 - Data-driven test architecture  
 - Automated error handling and reporting system  
+- Parallel test execution capabilities  
+```
