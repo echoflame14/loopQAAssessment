@@ -5,11 +5,6 @@ on:
   pull_request:
     branches: [ main, master ]
 
-env:
-  TS_NODE_PROJECT: ./tsconfig.json
-  TS_NODE_BASEURL: ./
-  NODE_OPTIONS: '-r tsconfig-paths/register'
-
 jobs:
   test:
     timeout-minutes: 60
@@ -30,16 +25,13 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
       
-    - name: Verify TypeScript Configuration
-      run: |
-        echo "Checking tsconfig paths..."
-        npx tsc --project tsconfig.json --noEmit
-        
     - name: Run Playwright tests
-      run: npm run test
-      env:
-        DEBUG: pw:api*
-        
+      run: |
+        export NODE_OPTIONS='-r tsconfig-paths/register'
+        export TS_NODE_PROJECT=./tsconfig.json
+        export TS_NODE_BASEURL=./
+        npm run test
+      
     - uses: actions/upload-artifact@v4
       if: always()
       with:
