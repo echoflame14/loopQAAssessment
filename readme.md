@@ -94,4 +94,5 @@ npm run testWindows
 
 ## 📬 Submission
 **Video walkthrough demonstrating key features:**  
-[Watch Video Walkthrough](https://www.youtube.com/watch?v=7L6EJAs33tY)
+[Watch Video Walkthrough](<https://www.youtube.com/watch?v=7L6EJAs33tY>)
+
