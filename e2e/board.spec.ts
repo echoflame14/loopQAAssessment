@@ -1,9 +1,9 @@
 // e2e/board.spec.ts
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../src/pages/LoginPage';
-import { ProjectBoardPage } from '../src/pages/ProjectBoardPage';
+import { LoginPage } from '@/pages/LoginPage';
+import { ProjectBoardPage } from '@/pages/ProjectBoardPage';
 import { TEST_CREDENTIALS, TEST_CASES } from '../test-data/test-data';
-import { TestLogger } from '../src/utils/TestLogger';
+import { TestLogger } from '@/utils/TestLogger';
 
 test.describe('Loop Task Management System - Acceptance Test Suite', () => {
     let loginPage: LoginPage;
