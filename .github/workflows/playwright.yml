@@ -21,9 +21,19 @@ jobs:
       run: |
         npm ci
         npm install -D tsconfig-paths ts-node @types/node
+
+    # Add browser cache
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: playwright-${{ runner.os }}-
         
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      run: npx playwright install --with-deps chromium
       
     - name: Run Playwright tests
       run: |
